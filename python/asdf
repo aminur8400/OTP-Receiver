@@ -1,0 +1,58 @@
+USE sms_monitor;
+
+-- 1. Users table
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) UNIQUE,
+    password_hash VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. Numbers table (your available SMS numbers)
+CREATE TABLE IF NOT EXISTS numbers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    number VARCHAR(50) UNIQUE,
+    status ENUM('available', 'locked') DEFAULT 'available'
+);
+
+-- 3. Number assignment table
+CREATE TABLE IF NOT EXISTS number_assignments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    number_id INT NOT NULL,
+    assigned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expire_at TIMESTAMP GENERATED ALWAYS AS (assigned_at + INTERVAL 5 MINUTE) STORED,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (number_id) REFERENCES numbers(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 4. Modify live_sms to include user info
+ALTER TABLE live_sms
+ADD COLUMN user_id INT NULL,
+ADD FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+<------ Database make -------->
+
+php artisan make:migration create_users_table
+php artisan make:migration create_numbers_table
+php artisan make:migration create_number_assignments_table
+php artisan make:migration create_live_sms_table
+php artisan make:migration create_user_point_table
+php artisan make:migration create_withdrawals_table
+
+
+<------ Create Modals ------>
+
+php artisan make:model User
+php artisan make:model Number
+php artisan make:model NumberAssignment
+php artisan make:model LiveSms
+
+
+
+<----- Controllars ------>
+
+php artisan make:controller AuthController
+php artisan make:controller NumberController
+php artisan make:controller SmsController
