@@ -1,3 +1,6 @@
 1st-> a user panel. where a user have profile option where he can update his information like name, phone number, date of birth and a save button to save then, then another tab the password to change the password and the payment methods to withdraw his point. user have second option where he start working page. there have 1 button to get number. after clicking to the button it will show list of country after selecting the country the number will show. the user click on the number to copy. and he send the number anyhow to get the sms. when the pythong script get the number and store it on database it will also show to the user working page. that number will be lock for 5 min. but the user don't have to wait for 5 min to get another number. he can get another number when ever he click on get number button. but the button has 10 sec of cooldown.
 
-2nd. admin panel. admin can upload number from his admin panel. 
+2nd-> admin panel. admin can upload number from his admin panel. admin can upload the number country wise or a single country. also admin can track users like who earn how much point. withdrawal request. accept or cancel withdrawal request. if accept a invoice should be genarate. payment will be made manually.
+
+
+3rd -> i have python script ready which update sms to database. and have laravel project somehow ready you can see in our previous chat history. 

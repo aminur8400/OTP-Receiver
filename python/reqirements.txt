@@ -1,0 +1,12 @@
+# Selenium & Chrome Driver for scraping
+undetected-chromedriver==3.2.6
+
+# Async MySQL for high-performance inserts
+aiomysql==0.0.22
+
+# Async Redis client
+redis==5.3.7
+
+# Optional / Utilities
+tqdm==4.65.0
+python-dotenv==1.1.1
